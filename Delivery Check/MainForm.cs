@@ -146,16 +146,17 @@ namespace Delivery_Check
                         UpdateColor(grid.Rows[rowsCount]);
                     }
                 }
-                
+
                 if ((filter == GridFilterName.all || order.isDelivery == filter) &&
                     order.CourierReceived == "" && order.CourierGave == DateTime.MinValue &&
                     order.CanDelivered.ToString("HH:mm") != "00:00" &&
+                    TimeSpan.Zero <= order.CanDelivered.Subtract(timeMagnitka) &&
                     order.CanDelivered.Subtract(timeMagnitka) <= TimeSpan.Zero.Add(TimeSpan.FromMinutes(20)))
                 {
                     //new Message($"Заказ № {order.GetCode()}", "Срок жизни заказа скоро/уже закончился! Уточните у курьера о его доставке.").Show(MessageIcons.Warning);
 
                     Notification notification = new Notification();
-                    notification.SetAlert(AlertType.Warning, "Заказ скоро сгорит! Уточните у курьера о его доставке.", $"Заказ № {order.GetCode()}");
+                    notification.SetAlert(AlertType.Warning, "Заказ скоро сгорит! Уточните у курьера о его доставке. Осталось менее 20 мин.", $"Заказ № {order.GetCode()}");
                 }
             }
         }
