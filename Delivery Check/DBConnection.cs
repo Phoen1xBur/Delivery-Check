@@ -1,5 +1,4 @@
-﻿using MySql.Data;
-using MySql.Data.MySqlClient;
+﻿using MySqlConnector;
 using System;
 using System.Collections.Generic;
 
@@ -15,7 +14,6 @@ namespace Delivery_Check
 
         public bool IsConnect()
         {
-
             Connection = new MySqlConnection(MyEncrypt.Decrypt(Properties.Settings.Default.whatIsIt, Properties.Settings.Default.toIsIt));
             Connection.Open();
             return true;

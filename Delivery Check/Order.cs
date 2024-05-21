@@ -1,4 +1,4 @@
-﻿using MySql.Data.MySqlClient;
+﻿using MySqlConnector;
 using System;
 using System.Windows.Forms;
 
@@ -6,8 +6,8 @@ namespace Delivery_Check
 {
     class Order
     {
-        private readonly byte id;
-        private readonly byte code;
+        private readonly int id;
+        private readonly int code;
         private readonly DateTime orderTime;
         private readonly string step;
         private readonly string addrPhone;
@@ -36,7 +36,7 @@ namespace Delivery_Check
             isDelivery = GridFilterName.delivery;
             this.timePicker = timePicker;
         }
-        public Order(DateTimePicker timePicker, byte id, byte code, DateTime orderTime, string step, string addrPhone, DateTime canDelivered, string courierReceived, DateTime courierGave, string last, string description, byte isDelivery)
+        public Order(DateTimePicker timePicker, int id, int code, DateTime orderTime, string step, string addrPhone, DateTime canDelivered, string courierReceived, DateTime courierGave, string last, string description, byte isDelivery)
         {
             this.id = id;
             this.code = code;
@@ -63,11 +63,11 @@ namespace Delivery_Check
             grid.Cells[GridColumnName.last].Value = Last;
             grid.Cells[GridColumnName.description].Value = Description;
         }
-        public bool IsItCode(byte code)
+        public bool IsItCode(int code)
         {
             return (this.code == code);
         }
-        public byte GetCode()
+        public int GetCode()
         {
             return code;
         }

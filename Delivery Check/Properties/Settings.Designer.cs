@@ -12,7 +12,7 @@ namespace Delivery_Check.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.7.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.9.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -49,9 +49,9 @@ namespace Delivery_Check.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("TbriBASr9Fx1l81FrTzYNe8IkRrrHjjRKOZulQU0b1Lqqf9iVdavT9WEGxrRGlS755m1fpgr6aBa9X1pa" +
-            "jXTJaeJfrs30fZzGV+JZsmL5ypoXzxfaaYofkDAxdykBR8IUK7zMLbkWp57h8ONCd/B4WcwMCg96NSPB" +
-            "6J1AB4xq7OdxwwE8A7sPj+26cvEc3xLv4462llMmPpjuBIy3iNUXw==")]
+        [global::System.Configuration.DefaultSettingValueAttribute("8BR9uhsnRV+xK2IeQgx37OFEBnteuEU/Pn44JppS/A0jaNCfGUBqSc16DDXpxfoGuWOS7TnIC+Dwo1Bzw" +
+            "EC6P27EqnrwIXePvKFfhNg3usmakvT4YvY0oEYi2tDLon1vgJfhT6Fy0RE2uDgNPRhVOuMaKasuAhKdq" +
+            "P2Z7cAWRQ43Bq3N+S2GV/EwulzoXAJsfiCjZ7A9u3XDIAteAIhjWQ==")]
         public string whatIsIt {
             get {
                 return ((string)(this["whatIsIt"]));

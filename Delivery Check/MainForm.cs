@@ -1,4 +1,4 @@
-﻿using MySql.Data.MySqlClient;
+﻿using MySqlConnector;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -55,8 +55,9 @@ namespace Delivery_Check
 
         private void CheckUpdates()
         {
-            string actualVersion = GetActualVersion();
             string myVersion = Application.ProductVersion.ToString();
+            //string actualVersion = GetActualVersion();
+            string actualVersion = myVersion;
             if (actualVersion != myVersion)
             {
                 DialogResult result = MessageBox.Show("Доступно обновление\nСкачать?", "Внимание", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
@@ -160,7 +161,7 @@ namespace Delivery_Check
                 }
             }
         }
-        private bool CheckOrderInTable(byte codeOrder, string description)
+        private bool CheckOrderInTable(int codeOrder, string description)
         {
             for (int i = 0; i < grid.Rows.Count; i++)
             {
@@ -170,7 +171,7 @@ namespace Delivery_Check
                 }
                 else
                 {
-                    if ((byte)grid[GridColumnName.code, i].Value == codeOrder) return true;
+                    if ((int)grid[GridColumnName.code, i].Value == codeOrder) return true;
                 }
             }
             return false;
@@ -184,7 +185,7 @@ namespace Delivery_Check
             {
                 reader = GetOrders();
             }
-            catch (MySql.Data.MySqlClient.MySqlException)
+            catch (MySqlException)
             {
                 Notification notification = new Notification();
                 notification.SetAlert(AlertType.Warning, "На этот день, заказов нет!", "Внимание");
@@ -200,7 +201,7 @@ namespace Delivery_Check
             try
             {
                 orders = new Order[reader.GetInt32(DBOrder.Id)];
-            }catch(MySql.Data.MySqlClient.MySqlException)
+            }catch(MySqlException)
             {
                 reader.Close();
                 Notification notification = new Notification();
@@ -238,8 +239,8 @@ namespace Delivery_Check
 
                 orders[j] = new Order(
                     setDateDialog,
-                    (byte)reader.GetInt16(DBOrder.Id),
-                    (byte)reader.GetInt16(DBOrder.Code),
+                    reader.GetInt16(DBOrder.Id),
+                    reader.GetInt16(DBOrder.Code),
                     order_time, step,
                     reader.GetString(DBOrder.AddrPhone),
                     canDelivered, courierReceivedStr,
@@ -305,7 +306,7 @@ namespace Delivery_Check
             {
                 string courierReceivedTime = cell.Value.ToString();
                 
-                byte code = (byte)grid[GridColumnName.code, e.RowIndex].Value;
+                int code = (int)grid[GridColumnName.code, e.RowIndex].Value;
                 Order order = GetOrderByCode(code);
                 order.DBUpdateCourierReceived(courierReceivedTime, dbCon);
                 Log.Write("UPDATE", $"Заказ № {order.GetCode()} | Курьер взял = {courierReceivedTime}");
@@ -403,7 +404,7 @@ namespace Delivery_Check
             toolBtnCheckUpdatedGrid.Enabled = false;
             toolBtnCheckUpdatedNewOrder.Enabled = false;
         }
-        private Order GetOrderByCode(byte code)
+        private Order GetOrderByCode(int code)
         {
             foreach (Order order in allOrders)
             {
