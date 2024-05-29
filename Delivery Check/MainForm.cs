@@ -315,7 +315,7 @@ namespace Delivery_Check
             {
                 if (cell.Value.ToString() == "")
                 {
-                    byte code = (byte)grid[GridColumnName.code, e.RowIndex].Value;
+                    int code = (int)grid[GridColumnName.code, e.RowIndex].Value;
                     Order order = GetOrderByCode(code);
                     order.DBUpdateCourierGave(DateTime.MinValue, dbCon);
 
@@ -343,7 +343,7 @@ namespace Delivery_Check
                     UpdateLast(e);
                     DateTime courierGaveTime = DateTime.Parse(cell.Value.ToString());
 
-                    byte code = (byte)grid[GridColumnName.code, e.RowIndex].Value;
+                    int code = (int)grid[GridColumnName.code, e.RowIndex].Value;
                     Order order = GetOrderByCode(code);
                     order.DBUpdateCourierGave(courierGaveTime, dbCon);
                     Log.Write("UPDATE", $"Заказ № {order.GetCode()} | Курьер отдал = {courierGaveTime:HH:mm}");
@@ -374,7 +374,7 @@ namespace Delivery_Check
 
                     UpdateLast(e);
 
-                    byte code = (byte)grid[GridColumnName.code, e.RowIndex].Value;
+                    int code = (int)grid[GridColumnName.code, e.RowIndex].Value;
                     Order order = GetOrderByCode(code);
                     DateTime canDeliveredTime = DateTime.Parse(cell.Value.ToString());
                     order.DBUpdateCanDelivery(canDeliveredTime, dbCon);
@@ -385,7 +385,7 @@ namespace Delivery_Check
             {
                 string desc = (cell.Value == null) ? "" : cell.Value.ToString();
 
-                byte code = (byte)grid[GridColumnName.code, e.RowIndex].Value;
+                int code = (int)grid[GridColumnName.code, e.RowIndex].Value;
                 Order order = GetOrderByCode(code);
                 order.DBUpdateDescription(desc, dbCon);
                 Log.Write("UPDATE", $"Заказ № {order.GetCode()} | Описание = {desc}");
@@ -417,7 +417,7 @@ namespace Delivery_Check
         }
         private void UpdateLast(DataGridViewCellEventArgs e)
         {
-            Order order = GetOrderByCode((byte)grid[GridColumnName.code, e.RowIndex].Value);
+            Order order = GetOrderByCode((int)grid[GridColumnName.code, e.RowIndex].Value);
             DataGridViewCell last = grid[GridColumnName.last, e.RowIndex];
             TimeSpan time;
             try
@@ -517,7 +517,7 @@ namespace Delivery_Check
                 "Уведомление", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
             if (result == DialogResult.No) { e.Cancel = true; return; }
             // set deleted in db
-            Order order = GetOrderByCode((byte)cell[GridColumnName.code].Value);
+            Order order = GetOrderByCode((int)cell[GridColumnName.code].Value);
             try
             {
                 dbCon.IsConnect();
