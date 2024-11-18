@@ -29,17 +29,26 @@
         private void InitializeComponent()
         {
          this.components = new System.ComponentModel.Container();
+         System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
+         System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
+         System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
+         System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
+         System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
+         System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
+         System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
+         System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle26 = new System.Windows.Forms.DataGridViewCellStyle();
+         System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle27 = new System.Windows.Forms.DataGridViewCellStyle();
          System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-         System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-         System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-         System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-         System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-         System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-         System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-         System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-         System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-         System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
          this.grid = new System.Windows.Forms.DataGridView();
+         this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+         this.timeDelivery = new System.Windows.Forms.DataGridViewTextBoxColumn();
+         this.exceptedTimeDelivered = new System.Windows.Forms.DataGridViewTextBoxColumn();
+         this.adress = new System.Windows.Forms.DataGridViewTextBoxColumn();
+         this.inCourier = new System.Windows.Forms.DataGridViewTextBoxColumn();
+         this.outCourier = new System.Windows.Forms.DataGridViewTextBoxColumn();
+         this.timeDelivered = new System.Windows.Forms.DataGridViewTextBoxColumn();
+         this.lateness = new System.Windows.Forms.DataGridViewTextBoxColumn();
+         this.description = new System.Windows.Forms.DataGridViewTextBoxColumn();
          this.toolStrip1 = new System.Windows.Forms.ToolStrip();
          this.toolStripDropDownButton2 = new System.Windows.Forms.ToolStripDropDownButton();
          this.toolBtnCheckUpdatedGrid = new System.Windows.Forms.ToolStripMenuItem();
@@ -56,18 +65,10 @@
          this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
          this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
          this.filterBox = new System.Windows.Forms.ToolStripComboBox();
-         this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
          this.timer = new System.Windows.Forms.Timer(this.components);
          this.setDateDialog = new System.Windows.Forms.DateTimePicker();
-         this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-         this.timeDelivery = new System.Windows.Forms.DataGridViewTextBoxColumn();
-         this.exceptedTimeDelivered = new System.Windows.Forms.DataGridViewTextBoxColumn();
-         this.adress = new System.Windows.Forms.DataGridViewTextBoxColumn();
-         this.inCourier = new System.Windows.Forms.DataGridViewTextBoxColumn();
-         this.outCourier = new System.Windows.Forms.DataGridViewTextBoxColumn();
-         this.timeDelivered = new System.Windows.Forms.DataGridViewTextBoxColumn();
-         this.lateness = new System.Windows.Forms.DataGridViewTextBoxColumn();
-         this.description = new System.Windows.Forms.DataGridViewTextBoxColumn();
+         this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+         this.filterOrgId = new System.Windows.Forms.ToolStripComboBox();
          ((System.ComponentModel.ISupportInitialize)(this.grid)).BeginInit();
          this.toolStrip1.SuspendLayout();
          this.SuspendLayout();
@@ -101,6 +102,102 @@
          this.grid.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.Grid_CellEndEdit);
          this.grid.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.Grid_UserDeletingRow);
          // 
+         // id
+         // 
+         dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+         dataGridViewCellStyle19.Format = "N0";
+         dataGridViewCellStyle19.NullValue = null;
+         this.id.DefaultCellStyle = dataGridViewCellStyle19;
+         this.id.FillWeight = 1000F;
+         this.id.Frozen = true;
+         this.id.HeaderText = "№:";
+         this.id.Name = "id";
+         this.id.ReadOnly = true;
+         this.id.Width = 55;
+         // 
+         // timeDelivery
+         // 
+         dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+         dataGridViewCellStyle20.Format = "t";
+         dataGridViewCellStyle20.NullValue = null;
+         dataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+         this.timeDelivery.DefaultCellStyle = dataGridViewCellStyle20;
+         this.timeDelivery.HeaderText = "Время заказа:";
+         this.timeDelivery.Name = "timeDelivery";
+         this.timeDelivery.ReadOnly = true;
+         this.timeDelivery.Width = 50;
+         // 
+         // exceptedTimeDelivered
+         // 
+         dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+         dataGridViewCellStyle21.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+         this.exceptedTimeDelivered.DefaultCellStyle = dataGridViewCellStyle21;
+         this.exceptedTimeDelivered.HeaderText = "Шаг:";
+         this.exceptedTimeDelivered.Name = "exceptedTimeDelivered";
+         this.exceptedTimeDelivered.ReadOnly = true;
+         this.exceptedTimeDelivered.Width = 40;
+         // 
+         // adress
+         // 
+         dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+         dataGridViewCellStyle22.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+         this.adress.DefaultCellStyle = dataGridViewCellStyle22;
+         this.adress.HeaderText = "Адресс: Телефон:";
+         this.adress.Name = "adress";
+         this.adress.ReadOnly = true;
+         // 
+         // inCourier
+         // 
+         dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+         dataGridViewCellStyle23.Format = "t";
+         dataGridViewCellStyle23.NullValue = null;
+         dataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+         this.inCourier.DefaultCellStyle = dataGridViewCellStyle23;
+         this.inCourier.HeaderText = "Курьрер взял:";
+         this.inCourier.Name = "inCourier";
+         this.inCourier.Width = 70;
+         // 
+         // outCourier
+         // 
+         dataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+         dataGridViewCellStyle24.Format = "t";
+         dataGridViewCellStyle24.NullValue = null;
+         dataGridViewCellStyle24.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+         this.outCourier.DefaultCellStyle = dataGridViewCellStyle24;
+         this.outCourier.HeaderText = "Курьер отдал:";
+         this.outCourier.Name = "outCourier";
+         this.outCourier.Width = 55;
+         // 
+         // timeDelivered
+         // 
+         dataGridViewCellStyle25.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+         dataGridViewCellStyle25.Format = "t";
+         dataGridViewCellStyle25.NullValue = null;
+         dataGridViewCellStyle25.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+         this.timeDelivered.DefaultCellStyle = dataGridViewCellStyle25;
+         this.timeDelivered.HeaderText = "Должны привезти:";
+         this.timeDelivered.Name = "timeDelivered";
+         this.timeDelivered.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+         this.timeDelivered.Width = 55;
+         // 
+         // lateness
+         // 
+         dataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+         dataGridViewCellStyle26.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+         this.lateness.DefaultCellStyle = dataGridViewCellStyle26;
+         this.lateness.HeaderText = "Опоздание:";
+         this.lateness.Name = "lateness";
+         this.lateness.ReadOnly = true;
+         this.lateness.Width = 65;
+         // 
+         // description
+         // 
+         dataGridViewCellStyle27.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
+         dataGridViewCellStyle27.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+         this.description.DefaultCellStyle = dataGridViewCellStyle27;
+         this.description.HeaderText = "Примечание:";
+         this.description.Name = "description";
+         // 
          // toolStrip1
          // 
          this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -113,7 +210,8 @@
             this.toolStripSeparator1,
             this.toolStripSeparator2,
             this.filterBox,
-            this.toolStripButton1});
+            this.filterOrgId,
+            this.toolStripSeparator5});
          this.toolStrip1.Location = new System.Drawing.Point(0, 0);
          this.toolStrip1.Name = "toolStrip1";
          this.toolStrip1.Size = new System.Drawing.Size(648, 25);
@@ -245,15 +343,6 @@
          this.filterBox.Size = new System.Drawing.Size(95, 25);
          this.filterBox.SelectedIndexChanged += new System.EventHandler(this.ToolStripComboBox1_SelectedIndexChanged);
          // 
-         // toolStripButton1
-         // 
-         this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-         this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-         this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-         this.toolStripButton1.Name = "toolStripButton1";
-         this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
-         this.toolStripButton1.Text = "toolStripButton1";
-         // 
          // timer
          // 
          this.timer.Enabled = true;
@@ -262,107 +351,26 @@
          // 
          // setDateDialog
          // 
-         this.setDateDialog.Location = new System.Drawing.Point(360, 3);
+         this.setDateDialog.Location = new System.Drawing.Point(577, 2);
          this.setDateDialog.Name = "setDateDialog";
          this.setDateDialog.Size = new System.Drawing.Size(33, 20);
          this.setDateDialog.TabIndex = 3;
          this.setDateDialog.ValueChanged += new System.EventHandler(this.SetDateDialog_ValueChanged);
          // 
-         // id
+         // toolStripSeparator5
          // 
-         dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-         dataGridViewCellStyle1.Format = "N0";
-         dataGridViewCellStyle1.NullValue = null;
-         this.id.DefaultCellStyle = dataGridViewCellStyle1;
-         this.id.FillWeight = 1000F;
-         this.id.Frozen = true;
-         this.id.HeaderText = "№:";
-         this.id.Name = "id";
-         this.id.ReadOnly = true;
-         this.id.Width = 55;
+         this.toolStripSeparator5.Name = "toolStripSeparator5";
+         this.toolStripSeparator5.Size = new System.Drawing.Size(6, 25);
          // 
-         // timeDelivery
+         // filterOrgId
          // 
-         dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-         dataGridViewCellStyle2.Format = "t";
-         dataGridViewCellStyle2.NullValue = null;
-         dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-         this.timeDelivery.DefaultCellStyle = dataGridViewCellStyle2;
-         this.timeDelivery.HeaderText = "Время заказа:";
-         this.timeDelivery.Name = "timeDelivery";
-         this.timeDelivery.ReadOnly = true;
-         this.timeDelivery.Width = 50;
-         // 
-         // exceptedTimeDelivered
-         // 
-         dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-         dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-         this.exceptedTimeDelivered.DefaultCellStyle = dataGridViewCellStyle3;
-         this.exceptedTimeDelivered.HeaderText = "Шаг:";
-         this.exceptedTimeDelivered.Name = "exceptedTimeDelivered";
-         this.exceptedTimeDelivered.ReadOnly = true;
-         this.exceptedTimeDelivered.Width = 40;
-         // 
-         // adress
-         // 
-         dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-         dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-         this.adress.DefaultCellStyle = dataGridViewCellStyle4;
-         this.adress.HeaderText = "Адресс: Телефон:";
-         this.adress.Name = "adress";
-         this.adress.ReadOnly = true;
-         // 
-         // inCourier
-         // 
-         dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-         dataGridViewCellStyle5.Format = "t";
-         dataGridViewCellStyle5.NullValue = null;
-         dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-         this.inCourier.DefaultCellStyle = dataGridViewCellStyle5;
-         this.inCourier.HeaderText = "Курьрер взял:";
-         this.inCourier.Name = "inCourier";
-         this.inCourier.Width = 70;
-         // 
-         // outCourier
-         // 
-         dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-         dataGridViewCellStyle6.Format = "t";
-         dataGridViewCellStyle6.NullValue = null;
-         dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-         this.outCourier.DefaultCellStyle = dataGridViewCellStyle6;
-         this.outCourier.HeaderText = "Курьер отдал:";
-         this.outCourier.Name = "outCourier";
-         this.outCourier.Width = 55;
-         // 
-         // timeDelivered
-         // 
-         dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-         dataGridViewCellStyle7.Format = "t";
-         dataGridViewCellStyle7.NullValue = null;
-         dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-         this.timeDelivered.DefaultCellStyle = dataGridViewCellStyle7;
-         this.timeDelivered.HeaderText = "Должны привезти:";
-         this.timeDelivered.Name = "timeDelivered";
-         this.timeDelivered.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-         this.timeDelivered.Width = 55;
-         // 
-         // lateness
-         // 
-         dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-         dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-         this.lateness.DefaultCellStyle = dataGridViewCellStyle8;
-         this.lateness.HeaderText = "Опоздание:";
-         this.lateness.Name = "lateness";
-         this.lateness.ReadOnly = true;
-         this.lateness.Width = 65;
-         // 
-         // description
-         // 
-         dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
-         dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-         this.description.DefaultCellStyle = dataGridViewCellStyle9;
-         this.description.HeaderText = "Примечание:";
-         this.description.Name = "description";
+         this.filterOrgId.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+         this.filterOrgId.FlatStyle = System.Windows.Forms.FlatStyle.System;
+         this.filterOrgId.Items.AddRange(new object[] {
+            "Все"});
+         this.filterOrgId.Name = "filterOrgId";
+         this.filterOrgId.Size = new System.Drawing.Size(130, 25);
+         this.filterOrgId.SelectedIndexChanged += new System.EventHandler(this.filterOrg_SelectedIndexChanged);
          // 
          // MainForm
          // 
@@ -405,7 +413,6 @@
         private System.Windows.Forms.ToolStripMenuItem createOrder;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripMenuItem changerUser;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
       private System.Windows.Forms.DataGridViewTextBoxColumn id;
       private System.Windows.Forms.DataGridViewTextBoxColumn timeDelivery;
       private System.Windows.Forms.DataGridViewTextBoxColumn exceptedTimeDelivered;
@@ -415,6 +422,8 @@
       private System.Windows.Forms.DataGridViewTextBoxColumn timeDelivered;
       private System.Windows.Forms.DataGridViewTextBoxColumn lateness;
       private System.Windows.Forms.DataGridViewTextBoxColumn description;
+      private System.Windows.Forms.ToolStripComboBox filterOrgId;
+      private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
    }
 }
 

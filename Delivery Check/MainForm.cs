@@ -1,5 +1,6 @@
 ﻿using MySqlConnector;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
@@ -15,38 +16,45 @@ namespace Delivery_Check
         private DBConnection dbCon = new DBConnection();
         private Order[] allOrders;
         private byte filter = GridFilterName.all;
+        private List<string> OrgIds;
 
         private readonly ColorTable colorTable = new ColorTable();
         private readonly bool isAdmin;
 
         public MainForm(bool isAdmin)
         {
-            this.isAdmin = isAdmin;
-            InitializeComponent();
+         this.isAdmin = isAdmin;
+         InitializeComponent();
         }
         private void MainForm_Load(object sender, EventArgs e)
         {
-            // Проверка наличия обновлений
-            CheckUpdates();
+         // Проверка наличия обновлений
+         CheckUpdates();
 
-            // Делаем фильтр по умолчанию
-            filterBox.SelectedIndex = GridFilterName.delivery;
+         // Делаем фильтр по умолчанию
+         filterBox.SelectedIndex = GridFilterName.delivery;
+         filterOrgId.SelectedIndex = 0; // Default - all
+         OrgIds = dbCon.GetOrganizationIds();
+         foreach (string orgName in dbCon.GetOrganizationNames())
+         {
+            filterOrgId.Items.Add(orgName);
+         }
 
-            // Обновляем таблицу (показываем заказы относительно фильтра)
-            //UpdateGrid(); // Automatic reloaded
+         // Обновляем таблицу (показываем заказы относительно фильтра)
+         //UpdateGrid(); // Automatic reloaded
 
-            // Делаем задний фон кнопок соответствующим цветом
-            btnSucceeded.BackColor = colorTable.Succeeded;
-            btnLatecomer.BackColor = colorTable.Latecomer;
+         // Делаем задний фон кнопок соответствующим цветом
+         btnSucceeded.BackColor = colorTable.Succeeded;
+         btnLatecomer.BackColor = colorTable.Latecomer;
 
-            if (isAdmin)
-            {
-                ToolStripMenuItem item = new ToolStripMenuItem("Администрирование");
-                ToolStripMenuItem subMenu = new ToolStripMenuItem("Редактирование пользователей");
-                item.DropDownItems.Add(subMenu);
-                subMenu.Click += new EventHandler(EditUsers);
-                func.DropDownItems.Add(item);
-            }
+         if (isAdmin)
+         {
+               ToolStripMenuItem item = new ToolStripMenuItem("Администрирование");
+               ToolStripMenuItem subMenu = new ToolStripMenuItem("Редактирование пользователей");
+               item.DropDownItems.Add(subMenu);
+               subMenu.Click += new EventHandler(EditUsers);
+               func.DropDownItems.Add(item);
+         }
         }
         private void EditUsers(object sender, EventArgs e)
         {
@@ -130,36 +138,45 @@ namespace Delivery_Check
         }
         private void UpdateValueAllTable()
         {
-            DateTime timeMagnitka = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(
-            DateTime.UtcNow, "Russian Standard Time").AddHours(2);
+         DateTime timeMagnitka = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(
+         DateTime.UtcNow, "Russian Standard Time").AddHours(2);
 
-            for (int i = 0; i < allOrders.Length; i++)
+         for (int i = 0; i < allOrders.Length; i++)
+         {
+            Order order = allOrders[i];
+            if (order == null) continue;
+            if (filter == GridFilterName.all || order.isDelivery == filter)
             {
-                Order order = allOrders[i];
-                if (order == null) continue;
-                if (filter == GridFilterName.all || order.isDelivery == filter)
-                {
-                    if (!CheckOrderInTable(order.GetCode(), order.Description))
-                    {
-                        grid.Rows.Add();
-                        int rowsCount = grid.Rows.Count - 1;
-                        order.PutInTable(grid.Rows[rowsCount]);
-                        UpdateColor(grid.Rows[rowsCount]);
-                    }
-                }
-
-                if ((filter == GridFilterName.all || order.isDelivery == filter) &&
-                    order.CourierReceived == "" && order.CourierGave == DateTime.MinValue &&
-                    order.CanDelivered.ToString("HH:mm") != "00:00" &&
-                    TimeSpan.Zero <= order.CanDelivered.Subtract(timeMagnitka) &&
-                    order.CanDelivered.Subtract(timeMagnitka) <= TimeSpan.Zero.Add(TimeSpan.FromMinutes(20)))
-                {
-                    //new Message($"Заказ № {order.GetCode()}", "Срок жизни заказа скоро/уже закончился! Уточните у курьера о его доставке.").Show(MessageIcons.Warning);
-
-                    Notification notification = new Notification();
-                    notification.SetAlert(AlertType.Warning, "Заказ скоро сгорит! Уточните у курьера о его доставке. Осталось менее 20 мин.", $"Заказ № {order.GetCode()}");
-                }
+               if (!CheckOrderInTable(order.GetCode(), order.Description))
+               {
+                  // Проверка откуда заказ (какая точка)
+                  if (filterOrgId.SelectedIndex > 0)
+                  {
+                     // Фильтр не на все точки. Добавляем заказы только с выбранных точек
+                     if (OrgIds[filterOrgId.SelectedIndex - 1] != order.OrgId)
+                     {
+                        continue;
+                     }
+                  }
+                  grid.Rows.Add();
+                  int rowsCount = grid.Rows.Count - 1;
+                  order.PutInTable(grid.Rows[rowsCount]);
+                  UpdateColor(grid.Rows[rowsCount]);
+               }
             }
+
+            if ((filter == GridFilterName.all || order.isDelivery == filter) &&
+               order.CourierReceived == "" && order.CourierGave == DateTime.MinValue &&
+               order.CanDelivered.ToString("HH:mm") != "00:00" &&
+               TimeSpan.Zero <= order.CanDelivered.Subtract(timeMagnitka) &&
+               order.CanDelivered.Subtract(timeMagnitka) <= TimeSpan.Zero.Add(TimeSpan.FromMinutes(20)))
+            {
+               //new Message($"Заказ № {order.GetCode()}", "Срок жизни заказа скоро/уже закончился! Уточните у курьера о его доставке.").Show(MessageIcons.Warning);
+
+               Notification notification = new Notification();
+               notification.SetAlert(AlertType.Warning, "Заказ скоро сгорит! Уточните у курьера о его доставке. Осталось менее 20 мин.", $"Заказ № {order.GetCode()}");
+            }
+         }
         }
         private bool CheckOrderInTable(int codeOrder, string description)
         {
@@ -236,6 +253,7 @@ namespace Delivery_Check
                 }
                 DateTime canDelivered = (canDeliveredStr == "ERROR") ? DateTime.MinValue : DateTime.Parse(canDeliveredStr);
                 DateTime courierGave = (courierGaveStr == "") ? DateTime.MinValue : DateTime.Parse(courierGaveStr);
+                string orgId = reader.GetString(DBOrder.OrgId);
 
                 orders[j] = new Order(
                     setDateDialog,
@@ -244,7 +262,7 @@ namespace Delivery_Check
                     order_time, step,
                     reader.GetString(DBOrder.AddrPhone),
                     canDelivered, courierReceivedStr,
-                    courierGave, last, desc, isDelivery);
+                    courierGave, last, desc, orgId, isDelivery);
                 j++;
             } while (reader.Read());
             reader.Close();
@@ -545,19 +563,25 @@ namespace Delivery_Check
             UpdateGrid();
         }
 
-        private void ToolStripComboBox1_SelectedIndexChanged(object sender, EventArgs e) {
-            string searchType = sender.ToString().Split(',')[0];
-            filter = searchType switch
-            {
-                "Все" => GridFilterName.all,
-                "Самовывозы" => GridFilterName.noDelivery,
-                _ => GridFilterName.delivery,
-            };
-            grid.Rows.Clear();
-            UpdateGrid();
-        }
+      private void ToolStripComboBox1_SelectedIndexChanged(object sender, EventArgs e)
+      {
+         string searchType = sender.ToString().Split(',')[0];
+         filter = searchType switch
+         {
+            "Все" => GridFilterName.all,
+            "Самовывозы" => GridFilterName.noDelivery,
+            _ => GridFilterName.delivery,
+         };
+         grid.Rows.Clear();
+         UpdateGrid();
+      }
+      private void filterOrg_SelectedIndexChanged(object sender, EventArgs e)
+      {
+         grid.Rows.Clear();
+         UpdateGrid();
+      }
 
-        private void CreateOrder_Click(object sender, EventArgs e)
+      private void CreateOrder_Click(object sender, EventArgs e)
         {
             _ = new OrderForm().ShowDialog();
         }

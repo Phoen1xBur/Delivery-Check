@@ -18,51 +18,57 @@ namespace Delivery_Check
         public string CourierReceived { get; set; }
         public string Last { get; set; }
         public string Description { get; set; }
+        public string OrgId { get; }
         public byte isDelivery { get; }
         public byte CountPrinted = 0;
 
         public Order(DateTimePicker timePicker)
         {
-            id = 0;
-            code = 0;
-            orderTime = DateTime.MinValue;
-            CanDelivered = DateTime.MinValue;
-            CourierReceived = "";
-            CourierGave = DateTime.MinValue;
-            step = "";
-            addrPhone = "";
-            Last = "-";
-            Description = "";
-            isDelivery = GridFilterName.delivery;
-            this.timePicker = timePicker;
+         id = 0;
+         code = 0;
+         orderTime = DateTime.MinValue;
+         CanDelivered = DateTime.MinValue;
+         CourierReceived = "";
+         CourierGave = DateTime.MinValue;
+         step = "";
+         addrPhone = "";
+         Last = "-";
+         Description = "";
+         isDelivery = GridFilterName.delivery;
+         this.timePicker = timePicker;
+         OrgId = "";
         }
-        public Order(DateTimePicker timePicker, int id, int code, DateTime orderTime, string step, string addrPhone, DateTime canDelivered, string courierReceived, DateTime courierGave, string last, string description, byte isDelivery)
+        public Order(
+           DateTimePicker timePicker, int id, int code, DateTime orderTime, string step, string addrPhone,
+           DateTime canDelivered, string courierReceived, DateTime courierGave, 
+           string last, string description, string orgId, byte isDelivery)
         {
-            this.id = id;
-            this.code = code;
-            this.orderTime = orderTime;
-            this.CanDelivered = canDelivered;
-            this.CourierReceived = courierReceived;
-            this.CourierGave = courierGave;
-            this.step = step;
-            this.addrPhone = addrPhone;
-            this.Last = last;
-            this.Description = description;
-            this.timePicker = timePicker;
-            this.isDelivery = isDelivery;
+         this.id = id;
+         this.code = code;
+         this.orderTime = orderTime;
+         this.CanDelivered = canDelivered;
+         this.CourierReceived = courierReceived;
+         this.CourierGave = courierGave;
+         this.step = step;
+         this.addrPhone = addrPhone;
+         this.Last = last;
+         this.Description = description;
+         this.timePicker = timePicker;
+         this.isDelivery = isDelivery;
+         this.OrgId = orgId;
         }
         public void PutInTable(DataGridViewRow grid)
         {
-            grid.Cells[GridColumnName.code].Value = code;
-            grid.Cells[GridColumnName.orderTime].Value = orderTime.ToString("HH:mm");
-            grid.Cells[GridColumnName.step].Value = step;
-            grid.Cells[GridColumnName.addrPhone].Value = addrPhone;
-            grid.Cells[GridColumnName.courerReceived].Value = CourierReceived;
-            grid.Cells[GridColumnName.courerGave].Value = (IsTimeZero(CourierGave)) ? "" : CourierGave.ToString("HH:mm");
-            grid.Cells[GridColumnName.canDelivered].Value = CanDelivered.ToString("HH:mm");
-            grid.Cells[GridColumnName.last].Value = Last;
-            grid.Cells[GridColumnName.description].Value = Description;
-        }
+         grid.Cells[GridColumnName.code].Value = code;
+         grid.Cells[GridColumnName.orderTime].Value = orderTime.ToString("HH:mm");
+         grid.Cells[GridColumnName.step].Value = step;
+         grid.Cells[GridColumnName.addrPhone].Value = addrPhone;
+         grid.Cells[GridColumnName.courerReceived].Value = CourierReceived;
+         grid.Cells[GridColumnName.courerGave].Value = (IsTimeZero(CourierGave)) ? "" : CourierGave.ToString("HH:mm");
+         grid.Cells[GridColumnName.canDelivered].Value = CanDelivered.ToString("HH:mm");
+         grid.Cells[GridColumnName.last].Value = Last;
+         grid.Cells[GridColumnName.description].Value = Description;
+      }
         public bool IsItCode(int code)
         {
             return (this.code == code);
@@ -151,8 +157,9 @@ public static class DBOrder
     public const byte CourierGave = 7;
     public const byte Last = 8;
     public const byte Description = 9;
-    public const byte Deleted = 10;
-    public const byte isDelivery = 11;
+    public const byte OrgId = 10;
+    public const byte Deleted = 11;
+    public const byte isDelivery = 12;
 }
 public static class GridColumnName
 {
@@ -165,6 +172,7 @@ public static class GridColumnName
     public static byte canDelivered = 6;
     public static byte last = 7;
     public static byte description = 8;
+    public static byte orgId = 9;
 }
 public static class GridFilterName
 {

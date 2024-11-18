@@ -75,7 +75,41 @@ namespace Delivery_Check
             reader.Close();
             Close();
         }
-        internal List<string> GetUsers()
+
+      internal List<string> GetOrganizationIds()
+      {
+         IsConnect();
+         string query = "SELECT `org_id` FROM `organization`";
+         MySqlCommand cmd = new MySqlCommand(query, Connection);
+         MySqlDataReader reader = cmd.ExecuteReader();
+         List<string> orgs = new List<string>();
+         while (reader.Read())
+         {
+            orgs.Add(reader.GetString(0));
+         }
+         reader.Close();
+         Close();
+         return orgs;
+
+      }
+      internal List<string> GetOrganizationNames()
+      {
+         IsConnect();
+         string query = "SELECT `org_name` FROM `organization`";
+         MySqlCommand cmd = new MySqlCommand(query, Connection);
+         MySqlDataReader reader = cmd.ExecuteReader();
+         List<string> orgs = new List<string>();
+         while (reader.Read())
+         {
+            orgs.Add(reader.GetString(0));
+         }
+         reader.Close();
+         Close();
+         return orgs;
+
+      }
+
+      internal List<string> GetUsers()
         {
             IsConnect();
             string query = $"SELECT `login` FROM `idealist-users`";
