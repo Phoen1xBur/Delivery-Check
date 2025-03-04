@@ -257,8 +257,8 @@ namespace Delivery_Check
 
                 orders[j] = new Order(
                     setDateDialog,
-                    reader.GetInt16(DBOrder.Id),
-                    reader.GetInt16(DBOrder.Code),
+                    reader.GetInt32(DBOrder.Id),
+                    reader.GetInt32(DBOrder.Code),
                     order_time, step,
                     reader.GetString(DBOrder.AddrPhone),
                     canDelivered, courierReceivedStr,
